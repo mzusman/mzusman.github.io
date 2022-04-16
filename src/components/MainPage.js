@@ -12,14 +12,15 @@ import { useSelector } from 'react-redux';
 
 const MainPage = () => {
     const drawer_width = 200;
-    const buttons = useSelector((state) => state.title)
+    const buttons = useSelector((state) => state.menu)
+    console.log(buttons)
 
     return <Box sx={{ display: 'flex' }}>
         <CssBaseLine />
         <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
             <Toolbar>
                 <Typography variant="h6" noWrap component="div">
-                    mzusman
+                    mzusman's Blog
                 </Typography>
             </Toolbar>
         </AppBar>
@@ -42,7 +43,6 @@ const MainPage = () => {
             </Box>
         </Drawer>
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-            <Toolbar />
         </Box>
     </Box>
 }
