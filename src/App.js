@@ -7,6 +7,7 @@ import * as React from "react";
 import AppDrawer from "./components/AppDrawer";
 import MainView from "./components/MainView";
 import { Outlet } from "react-router-dom";
+import ButtonDialog from "./components/ButtonDialog";
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
       </AppBar>
       <AppDrawer></AppDrawer>
       <Outlet />
+      <ButtonDialog/>
     </Box>
   );
 };

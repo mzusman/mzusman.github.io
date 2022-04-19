@@ -1,4 +1,3 @@
-
 const menu = (state = [], action) => {
     switch (action.type) {
         case 'RECIEVE_MENU':
@@ -29,4 +28,5 @@ const menu = (state = [], action) => {
             return state
     }
 }
-export default menu
+
+export default menu;

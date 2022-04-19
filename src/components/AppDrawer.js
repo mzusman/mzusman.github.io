@@ -5,16 +5,19 @@ import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
-import { Toolbar } from "@mui/material";
+import { IconButton, Toolbar } from "@mui/material";
 import { Typography } from "@mui/material";
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Outlet, useNavigate } from "react-router-dom";
+import { AddBox, Delete, Edit } from "@mui/icons-material";
+import { deleteButton } from "../api/ClientApi";
 
 const AppDrawer = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const buttons = useSelector((state) => state.menu);
+  const auth = useSelector((state) => state.auth.role);
   const drawer_width = 200;
 
   return (
@@ -45,8 +48,44 @@ const AppDrawer = () => {
                     }}
                   >
                     <ListItemText primary={button.title} />
+                    {auth == "ADMIN" ? (
+                      <Box>
+                        <IconButton aria-label="edit" size="small">
+                          <Edit
+                            onClick={() => {
+                              dispatch({
+                                type: "EDIT_BUTTON_DIALOGE",
+                                data: button.title,
+                              });
+                            }}
+                          />
+                        </IconButton>
+                        <IconButton aria-label="delete" size="small">
+                          <Delete
+                            onClick={() => {
+                              dispatch(deleteButton({ title: button.title }));
+                            }}
+                          />
+                        </IconButton>
+                      </Box>
+                    ) : (
+                      ""
+                    )}
                   </ListItem>
                 ))}
+            <ListItem>
+              {auth == "ADMIN" ? (
+                <IconButton aria-label="edit" size="small">
+                  <AddBox
+                    onClick={() => {
+                      dispatch({ type: "ADD_BUTTON_DIALOGE" });
+                    }}
+                  />
+                </IconButton>
+              ) : (
+                ""
+              )}
+            </ListItem>
           </List>
         </Box>
       </Drawer>

@@ -1,9 +1,11 @@
 import { combineReducers } from "redux";
-import menu from './MenuReducer'
-
-
+import menu from "./MenuReducer";
+import auth from "./AuthReducer";
+import dialog from "./DialogReducer";
 
 const rootReducer = combineReducers({
-    menu
-})
-export default rootReducer
+  menu,
+  auth,
+  dialog,
+});
+export default rootReducer;
