@@ -1,18 +1,36 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import { StyledEngineProvider } from '@mui/material/styles';
-import Store from './components/Store'
-import { Provider } from 'react-redux';
-import { createStore } from '@reduxjs/toolkit';
-import reducer from './reducers'
+import { StyledEngineProvider } from "@mui/material/styles";
+import React from "react";
+import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
+import { applyMiddleware, createStore } from "redux";
+import { createLogger } from "redux-logger";
+import thunk from "redux-thunk";
+import App from "./App";
+import "./index.css";
+import rootReducer from "./reducers";
+import { getButtons } from "./api/ClientApi";
+import { Routes, Route } from "react-router-dom";
+import MainView from "./components/MainView";
 
-const store = createStore(reducer)
+const middleware = [thunk];
+if (process.env.NODE_ENV !== "production") middleware.push(createLogger());
+
+const store = createStore(rootReducer, applyMiddleware(...middleware));
+
+store.dispatch(getButtons());
+
 ReactDOM.render(
-  <Provider store={store}>
-    <StyledEngineProvider>
-      <App />
-    </StyledEngineProvider>
-  </Provider>
-  , document.getElementById('root'));
+  <BrowserRouter>
+    <Provider store={store}>
+      <StyledEngineProvider>
+        <Routes>
+          <Route path="/" element={<App />}>
+            <Route path=":buttons" element={<MainView />} />
+          </Route>
+        </Routes>
+      </StyledEngineProvider>
+    </Provider>
+  </BrowserRouter>,
+  document.getElementById("root")
+);

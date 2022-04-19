@@ -1,23 +1,22 @@
 
-const initialState = [
-    {
-        title: "About Me",
-        selected: true,
-        content: "About me"
-    }, {
-        title: "Blog",
-        selected: true,
-        content: "Blog Blog"
-    }
-]
-const menu = (state = initialState, action) => {
+const menu = (state = [], action) => {
     switch (action.type) {
+        case 'RECIEVE_MENU':
+            return action.data
+
         case 'SELECT':
+            console.log(state)
             return state.map(a => a.title == action.title ?
                 {
                     ...a,
                     selected: true
-                } : a)
+                } :
+                {
+                    ...a,
+                    selected: false
+                }
+            )
+
         case 'NEW':
             return [
                 ...state,
