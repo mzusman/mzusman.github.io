@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addButton, editButton } from "../api/ClientApi";
+import { addButton, editButton } from "../api/SectionsApi";
 
 const ButtonDialog = () => {
   const dispatch = useDispatch();
@@ -68,7 +68,7 @@ const ButtonDialog = () => {
           <Button
             onClick={() => {
               dispatch(
-                addButton({ title: button, selected: false, content: "" })
+                addButton({ title: button, selected: false, content: [] })
               );
               dispatch({ type: "NO_ACTIVE" });
               setOpen(false);

@@ -11,7 +11,8 @@ import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { AddBox, Delete, Edit } from "@mui/icons-material";
-import { deleteButton } from "../api/ClientApi";
+import { deleteButton } from "../api/SectionsApi";
+import { getAllPostsBySection } from "../api/PostsApi";
 
 const AppDrawer = () => {
   const dispatch = useDispatch();

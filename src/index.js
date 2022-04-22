@@ -9,10 +9,10 @@ import thunk from "redux-thunk";
 import App from "./App";
 import "./index.css";
 import rootReducer from "./reducers";
-import { getButtons } from "./api/ClientApi";
+import { getButtons } from "./api/SectionsApi";
 import { Routes, Route } from "react-router-dom";
 import MainView from "./components/MainView";
-import { getAuth } from './api/ClientApi';
+import { getAuth } from './api/SectionsApi';
 
 const middleware = [thunk];
 if (process.env.NODE_ENV !== "production") middleware.push(createLogger());
