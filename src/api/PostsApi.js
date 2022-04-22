@@ -11,8 +11,9 @@ export const deletePost = (data) => (dispatch) => {
     .then(
       (res) =>
         dispatch({
-          type: "RECIEVE_MENU",
+          type: "RECIEVE_POSTS",
           data: res,
+          section: data.section,
         }),
       (error) => error
     );
@@ -31,8 +32,9 @@ export const addPost = (data) => (dispatch) => {
     .then(
       (res) =>
         dispatch({
-          type: "RECIEVE_MENU",
+          type: "RECIEVE_POSTS",
           data: res,
+          section: data.section,
         }),
       (error) => error
     );
@@ -72,7 +74,7 @@ export const editPost = (data) => (dispatch) => {
     .then(
       (res) =>
         dispatch({
-          type: "RECIEVE_MENU",
+          type: "RECIEVE_POSTS",
           data: res,
         }),
       (error) => error

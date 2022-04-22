@@ -11,7 +11,7 @@ const posts = (state = initialState, action) => {
         data: action.data,
       };
 
-    case "SELECT":
+    case "SELECT_POST":
       console.log(state);
       return state.map((a) =>
         a.title == action.title
@@ -25,14 +25,6 @@ const posts = (state = initialState, action) => {
             }
       );
 
-    case "NEW":
-      return [
-        ...state,
-        {
-          selected: false,
-          title: action.title,
-        },
-      ];
     default:
       return state;
   }

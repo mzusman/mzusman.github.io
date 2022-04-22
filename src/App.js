@@ -8,6 +8,7 @@ import AppDrawer from "./components/AppDrawer";
 import MainView from "./components/MainView";
 import { Outlet } from "react-router-dom";
 import ButtonDialog from "./components/ButtonDialog";
+import PostDialog from "./components/PostDialog";
 
 const App = () => {
   return (
@@ -25,7 +26,8 @@ const App = () => {
       </AppBar>
       <AppDrawer></AppDrawer>
       <Outlet />
-      <ButtonDialog/>
+      <ButtonDialog />
+      <PostDialog />
     </Box>
   );
 };
