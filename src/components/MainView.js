@@ -75,8 +75,16 @@ const MainView = () => {
               <IconButton aria-label="delete" size="small">
                 <Edit
                   onClick={() => {
-                    dispatch(editPost({ section: view.title }));
+                    dispatch({
+                      type: "EDIT_POST_DIALOGE",
+                      title: post.title,
+                      content: post.content,
+                    });
                   }}
+
+                  // onClick={() => {
+                  // dispatch(editPost({ section: view.title }));
+                  // }}
                 />
               </IconButton>
             </CardActions>

@@ -80,6 +80,7 @@ const ButtonDialog = () => {
           <Button
             onClick={() => {
               dispatch(
+
                 editButton({
                   previous: dialog.button,
                   next: button,

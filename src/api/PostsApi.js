@@ -76,6 +76,7 @@ export const editPost = (data) => (dispatch) => {
         dispatch({
           type: "RECIEVE_POSTS",
           data: res,
+          section: data.section,
         }),
       (error) => error
     );

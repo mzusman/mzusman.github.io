@@ -9,7 +9,7 @@ import {
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { addPost } from "../api/PostsApi";
+import { addPost, editPost } from "../api/PostsApi";
 import { editButton } from "../api/SectionsApi";
 
 const PostDialog = () => {
@@ -23,14 +23,17 @@ const PostDialog = () => {
   const postDialog = useSelector((state) => {
     return state.postDialog;
   });
+  console.log(postDialog);
+  //   let value = ""
   React.useEffect(() => {
     if (open) return;
     if (postDialog.state == "ADD" || postDialog.state == "EDIT") setOpen(true);
-    // if (postDialog.state == "EDIT") {
-    //   value = postDialog.button;
-    //   setButton(postDialog.button);
-    //   console.log(value);
-    // }
+    if (postDialog.state == "EDIT") {
+      //   value = postDialog.title;
+      setTitle(postDialog.title);
+      setContent(postDialog.content);
+      //   console.log(value);
+    }
   });
 
   return (
@@ -100,9 +103,10 @@ const PostDialog = () => {
           <Button
             onClick={() => {
               dispatch(
-                editButton({
-                  previous: postDialog.button,
-                  next: title,
+                editPost({
+                  previous: postDialog.title,
+                  next: { title: title, content: content },
+                  section: view.title,
                 })
               );
               dispatch({ type: "NO_ACTIVE" });
