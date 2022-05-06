@@ -1,11 +1,14 @@
 import {
   Button,
+  createTheme,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
   TextField,
+  ThemeProvider,
 } from "@mui/material";
+import MUIRichTextEditor from "mui-rte";
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -19,12 +22,16 @@ const PostDialog = () => {
   const [title, setTitle] = React.useState("");
   const [content, setContent] = React.useState("");
   let view = useSelector((state) => state.posts.section);
+  const myTheme = createTheme({
+    // Set up your custom MUI theme here
+  });
 
   const postDialog = useSelector((state) => {
     return state.postDialog;
   });
   console.log(postDialog);
   //   let value = ""
+  console.log(content);
   React.useEffect(() => {
     if (open) return;
     if (postDialog.state == "ADD" || postDialog.state == "EDIT") setOpen(true);
@@ -38,6 +45,7 @@ const PostDialog = () => {
 
   return (
     <Dialog
+      fullScreen
       open={open}
       onClose={() => {
         dispatch({ type: "NO_ACTIVE" });
@@ -61,17 +69,20 @@ const PostDialog = () => {
           fullWidth
           variant="standard"
         ></TextField>
-        <TextField
-          multiline
-          margin="normal"
-          id="Content"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          label="Content"
-          type="text"
-          fullWidth
-          variant="standard"
-        ></TextField>
+        <ThemeProvider theme={myTheme}>
+          <MUIRichTextEditor
+            //   multiline
+            //   margin="normal"
+            //   id="Content"
+            //   value={content}
+            defaultValue={content}
+            onSave={(e) => setContent(e)}
+            //   label="Content"
+            //   type="text"
+            //   fullWidth
+            //   variant="standard"
+          ></MUIRichTextEditor>
+        </ThemeProvider>
       </DialogContent>
       <DialogActions>
         <Button
@@ -84,6 +95,7 @@ const PostDialog = () => {
         </Button>
         {postDialog.state == "ADD" ? (
           <Button
+            disabled={content == ""}
             onClick={() => {
               dispatch(
                 addPost({
@@ -101,6 +113,7 @@ const PostDialog = () => {
           </Button>
         ) : (
           <Button
+            disabled={content == "" || content == postDialog.content}
             onClick={() => {
               dispatch(
                 editPost({
