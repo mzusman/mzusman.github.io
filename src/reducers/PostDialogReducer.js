@@ -9,6 +9,7 @@ const postDialog = (state = { state: "NO_ACTIVE" }, action) => {
         state: "EDIT",
         title: action.title,
         content: action.content,
+        desp: action.desp,
       };
     case "NO_ACTIVE":
       return {

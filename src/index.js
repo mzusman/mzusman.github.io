@@ -15,6 +15,7 @@ import MainView from "./components/MainView";
 import { getAuth } from "./api/SectionsApi";
 import { ThemeProvider } from "@mui/material/styles";
 import { createTheme } from "@mui/system";
+import PostView from "./components/PostView";
 
 const middleware = [thunk];
 if (process.env.NODE_ENV !== "production") middleware.push(createLogger());
@@ -33,7 +34,9 @@ ReactDOM.render(
       <StyledEngineProvider>
         <Routes>
           <Route path="/" element={<App />}>
-            <Route path=":buttons" element={<MainView />} />
+            <Route path=":buttons" element={<MainView />}>
+              <Route path=":post" element={<PostView />} />
+            </Route>
           </Route>
         </Routes>
       </StyledEngineProvider>

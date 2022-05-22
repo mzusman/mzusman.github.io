@@ -1,7 +1,7 @@
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseLine from "@mui/material/CssBaseline";
-import { IconButton, Toolbar } from "@mui/material";
+import { Grid, IconButton, Toolbar } from "@mui/material";
 import { Typography } from "@mui/material";
 import * as React from "react";
 import AppDrawer from "./components/AppDrawer";
@@ -20,17 +20,35 @@ const App = () => {
         sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
       >
         <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            mzusman's Blog
-          </Typography>
-          <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <IconButton color="inherit" >
+          <Grid container direction="column" alignItems="center">
+            <Grid item xs={11}>
+              <Typography
+                alignSelf="center"
+                variant="h6"
+                component="div"
+                sx={{ flexGrow: 1 }}
+              >
+                mzusman's Blog
+              </Typography>
+            </Grid>
+          </Grid>
+          <Grid item xs={1}>
+            <IconButton
+              href="https://github.com/mzusman"
+              target="_blank"
+              color="inherit"
+            >
               <GitHub />
             </IconButton>
-            <IconButton color="inherit" edge="end">
+            <IconButton
+              href="https://www.linkedin.com/in/mor-zusman-79109798/?originalSubdomain=il"
+              target="_blank"
+              color="inherit"
+              edge="end"
+            >
               <LinkedIn />
             </IconButton>
-          </Box>
+          </Grid>
         </Toolbar>
       </AppBar>
       <AppDrawer></AppDrawer>

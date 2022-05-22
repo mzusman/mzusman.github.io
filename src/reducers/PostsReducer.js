@@ -13,17 +13,17 @@ const posts = (state = initialState, action) => {
 
     case "SELECT_POST":
       console.log(state);
-      return state.map((a) =>
-        a.title == action.title
-          ? {
-              ...a,
-              selected: true,
-            }
-          : {
-              ...a,
-              selected: false,
-            }
-      );
+      return {
+        section: state.section,
+        data: state.data.map(a=>a.title == action.title ? {
+          ...a,
+          selected:true
+        }:{
+          ...a,
+          selected:false
+        }
+        ),
+      };
 
     default:
       return state;

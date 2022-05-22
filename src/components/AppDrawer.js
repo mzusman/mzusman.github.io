@@ -19,7 +19,7 @@ const AppDrawer = () => {
   const navigate = useNavigate();
   const buttons = useSelector((state) => state.menu);
   const auth = useSelector((state) => state.auth.role);
-  const drawer_width = 200;
+  const drawer_width = 250;
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -45,6 +45,7 @@ const AppDrawer = () => {
                     key={button.title}
                     onClick={() => {
                       dispatch({ type: "SELECT", title: button.title });
+                      dispatch({ type: "SELECT_POST", title: "" });
                       navigate(`/${button.title}`, { replace: false });
                     }}
                   >
