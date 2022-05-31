@@ -1,4 +1,4 @@
-const address = "34.123.69.179";
+const address = "34.68.199.227";
 export const deletePost = (data) => (dispatch) => {
   fetch("http://" + address + ":3500/app/v1/posts/del", {
     method: "POST",
