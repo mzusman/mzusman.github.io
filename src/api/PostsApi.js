@@ -1,6 +1,6 @@
-const address = "34.135.43.94"
+const address = "34.123.69.179";
 export const deletePost = (data) => (dispatch) => {
-  fetch("http://34.135.43.94:3500/app/v1/posts/del", {
+  fetch("http://" + address + ":3500/app/v1/posts/del", {
     method: "POST",
     headers: {
       Accpet: "application/json",
@@ -21,7 +21,7 @@ export const deletePost = (data) => (dispatch) => {
 };
 
 export const addPost = (data) => (dispatch) => {
-  fetch("http://34.135.43.94:3500/app/v1/posts/add", {
+  fetch("http://" + address + ":3500/app/v1/posts/add", {
     method: "POST",
     headers: {
       Accpet: "application/json",
@@ -42,7 +42,7 @@ export const addPost = (data) => (dispatch) => {
 };
 
 export const getPostByTitle = (data) => (dispatch) => {
-  fetch("http://34.135.43.94:3500/app/v1/post_by_title", {
+  fetch("http://" + address + ":3500/app/v1/post_by_title", {
     method: "POST",
     headers: {
       Accpet: "application/json",
@@ -54,16 +54,15 @@ export const getPostByTitle = (data) => (dispatch) => {
     .then(
       (res) =>
         dispatch({
-          type: "RECIEVE_POSTS",
-          section: section,
-          data: res,
+          type: "RECIEVE_POST_CONTENT",
+          data: res[0],
         }),
       (error) => error
     );
 };
 
 export const getAllTitlesPostsBySection = (section) => (dispatch) => {
-  fetch("http://34.135.43.94:3500/app/v1/posts_titles", {
+  fetch("http://" + address + ":3500/app/v1/post_titles", {
     method: "POST",
     headers: {
       Accpet: "application/json",
@@ -76,7 +75,7 @@ export const getAllTitlesPostsBySection = (section) => (dispatch) => {
       (res) =>
         dispatch({
           type: "RECIEVE_POSTS",
-          section: section,
+          section: section.title,
           data: res,
         }),
       (error) => error
@@ -84,7 +83,7 @@ export const getAllTitlesPostsBySection = (section) => (dispatch) => {
 };
 
 export const editPost = (data) => (dispatch) => {
-  fetch("http://34.135.43.94:3500/app/v1/posts/edit", {
+  fetch("http://" + address + ":3500/app/v1/posts/edit", {
     method: "POST",
     headers: {
       Accpet: "application/json",
@@ -96,9 +95,8 @@ export const editPost = (data) => (dispatch) => {
     .then(
       (res) =>
         dispatch({
-          type: "RECIEVE_POSTS",
-          data: res,
-          section: data.section,
+          type: "SELECT_POST",
+          title: res[0].title,
         }),
       (error) => error
     );

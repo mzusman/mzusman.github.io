@@ -1,5 +1,6 @@
+const address = "34.123.69.179";
 export const getAuth = () => (dispatch) => {
-  fetch("http://34.135.43.94:3500/app/v1/auth")
+  fetch("http://" + address + ":3500/app/v1/auth")
     .then((res) => res.json())
     .then(
       (res) =>
@@ -12,7 +13,7 @@ export const getAuth = () => (dispatch) => {
 };
 
 export const deleteButton = (data) => (dispatch) => {
-  fetch("http://34.135.43.94:3500/app/v1/menu/del", {
+  fetch("http://" + address + ":3500/app/v1/menu/del", {
     method: "POST",
     headers: {
       Accpet: "application/json",
@@ -32,7 +33,7 @@ export const deleteButton = (data) => (dispatch) => {
 };
 
 export const addButton = (data) => (dispatch) => {
-  fetch("http://34.135.43.94:3500/app/v1/menu/add", {
+  fetch("http://" + address + ":3500/app/v1/menu/add", {
     method: "POST",
     headers: {
       Accpet: "application/json",
@@ -52,7 +53,7 @@ export const addButton = (data) => (dispatch) => {
 };
 
 export const editButton = (data) => (dispatch) => {
-  fetch("http://34.135.43.94:3500/app/v1/menu/edit", {
+  fetch("http://" + address + ":3500/app/v1/menu/edit", {
     method: "POST",
     headers: {
       Accpet: "application/json",
@@ -72,7 +73,7 @@ export const editButton = (data) => (dispatch) => {
 };
 
 export const getButtons = () => (dispatch) => {
-  fetch("http://34.135.43.94:3500/app/v1/menu")
+  fetch("http://"+address+":3500/app/v1/menu")
     .then((res) => res.json())
     .then(
       (res) =>

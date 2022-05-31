@@ -5,6 +5,22 @@ const initialState = {
 
 const posts = (state = initialState, action) => {
   switch (action.type) {
+    case "RECIEVE_POST_CONTENT":
+      return {
+        section: action.data.section,
+        data: state.data.map((a) =>
+          a.title == action.data.title
+            ? {
+                ...a,
+                content: action.data.content,
+              }
+            : {
+                ...a,
+                selected: false,
+              }
+        ),
+      };
+
     case "RECIEVE_POSTS":
       return {
         section: action.section,
@@ -12,16 +28,20 @@ const posts = (state = initialState, action) => {
       };
 
     case "SELECT_POST":
-      console.log(state);
       return {
         section: state.section,
-        data: state.data.map(a=>a.title == action.title ? {
-          ...a,
-          selected:true
-        }:{
-          ...a,
-          selected:false
-        }
+        data: state.data.map((a) =>
+          a.title == action.title
+            ? {
+                ...a,
+                selected: true,
+                content: undefined,
+              }
+            : {
+                ...a,
+                selected: false,
+                content: undefined,
+              }
         ),
       };
 

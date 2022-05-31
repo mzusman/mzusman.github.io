@@ -7,6 +7,7 @@ import {
   createTheme,
   Divider,
   IconButton,
+  Skeleton,
   ThemeProvider,
   Toolbar,
   Typography,
@@ -16,7 +17,11 @@ import MUIRichTextEditor from "mui-rte";
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
-import { deletePost, getAllPostsBySection } from "../api/PostsApi";
+import {
+  deletePost,
+  getAllPostsBySection,
+  getAllTitlesPostsBySection,
+} from "../api/PostsApi";
 
 const MainView = () => {
   const navigate = useNavigate();
@@ -24,6 +29,7 @@ const MainView = () => {
     // Set up your custom MUI theme here
   });
   var params = useParams();
+  console.log(params);
   let view = useSelector((state) =>
     state.menu.filter((a) => a.selected || a.title == params.buttons)
   );
@@ -34,15 +40,29 @@ const MainView = () => {
   const auth = useSelector((state) => state.auth.role);
   const posts = useSelector((state) => state.posts);
 
-  // const [open, setOpen] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
 
   console.log(posts);
 
+  console.log();
   React.useEffect(() => {
-    if (posts.section.title != view.title) dispatch(getAllPostsTitlesBySection(view));
+    if (!loading && view.length != 0 && posts.section != view.title) {
+      setLoading(true);
+      dispatch(getAllTitlesPostsBySection(view));
+    }
+    if (loading && view.length != 0 && posts.section == view.title)
+      setLoading(false);
+
+    if (
+      posts != undefined &&
+      params.post != undefined &&
+      posts.data.filter((a) => a.title == params.post && a.selected != true)
+        .length == 1
+    )
+      dispatch({ type: "SELECT_POST", title: params.post });
   });
 
-  return posts.data.filter(a=>a.selected).length > 0 ? (
+  return posts.data.filter((a) => a.selected).length > 0 ? (
     <Outlet />
   ) : (
     <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
@@ -58,8 +78,11 @@ const MainView = () => {
       ) : (
         ""
       )}
-
-      {posts.data.map((post) => (
+      {loading ?  (<Skeleton
+            variant="rectangular"
+            height={"80vh"}
+            animation="wave"
+          ></Skeleton>): posts.data.map((post) => (
         <Box>
           <Card>
             <CardActionArea
@@ -113,22 +136,6 @@ const MainView = () => {
                     }}
                   />
                 </IconButton>
-                <IconButton aria-label="edit" size="small">
-                  <Edit
-                    onClick={() => {
-                      dispatch({
-                        type: "EDIT_POST_DIALOGE",
-                        title: post.title,
-                        content: post.content,
-                        desp: post.desp,
-                      });
-                    }}
-
-                    // onClick={() => {
-                    // dispatch(editPost({ section: view.title }));
-                    // }}
-                  />
-                </IconButton>
               </CardActions>
             ) : (
               ""
@@ -137,9 +144,8 @@ const MainView = () => {
           <Divider variant="middle" />
         </Box>
       ))}
+      
 
-      {/* <Typography title>{view.content}</Typography> */}
-      {/* <Typography paragraph>{view.content}</Typography> */}
     </Box>
   );
 };

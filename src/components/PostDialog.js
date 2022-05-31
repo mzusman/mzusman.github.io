@@ -47,7 +47,6 @@ const PostDialog = () => {
   const postDialog = useSelector((state) => {
     return state.postDialog;
   });
-  console.log(postDialog);
   //   let value = ""
   // console.log(content);
   React.useEffect(() => {
@@ -61,10 +60,16 @@ const PostDialog = () => {
       setTitle(postDialog.title);
       setContent(postDialog.content);
       setDesp(postDialog.desp);
-
-      //   console.log(value);
     }
   });
+  const onClose = () => {
+    setDTitle("");
+    setDContent("");
+    setDDesp("");
+    setTitle("");
+    setContent("");
+    setDesp("");
+  };
 
   return (
     <Dialog
@@ -73,6 +78,7 @@ const PostDialog = () => {
       onClose={() => {
         dispatch({ type: "NO_ACTIVE" });
         setOpen(false);
+        onClose();
       }}
     >
       {postDialog.state == "ADD" ? (
@@ -162,6 +168,7 @@ const PostDialog = () => {
           onClick={() => {
             setOpen(false);
             dispatch({ type: "NO_ACTIVE" });
+            onClose();
           }}
         >
           Cancel
@@ -181,11 +188,12 @@ const PostDialog = () => {
                   selected: false,
                   content: content,
                   desp: desp,
-                  section: view.title,
+                  section: view,
                 })
               );
               dispatch({ type: "NO_ACTIVE" });
               setOpen(false);
+              onClose();
             }}
           >
             Confirm
@@ -203,11 +211,12 @@ const PostDialog = () => {
                 editPost({
                   previous: postDialog.title,
                   next: { title: title, content: content, desp: desp },
-                  section: view.title,
+                  section: view,
                 })
               );
               dispatch({ type: "NO_ACTIVE" });
               setOpen(false);
+              onClose();
             }}
           >
             Confirm
