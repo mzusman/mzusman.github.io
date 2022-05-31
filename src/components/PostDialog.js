@@ -9,7 +9,6 @@ import {
   ThemeProvider,
 } from "@mui/material";
 import { convertFromRaw, convertToRaw, EditorState } from "draft-js";
-import MUIRichTextEditor from "mui-rte";
 import * as React from "react";
 import { Editor } from "react-draft-wysiwyg";
 
