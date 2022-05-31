@@ -33,7 +33,7 @@ const PostDialog = () => {
   });
 
   const onSaveDesp = (a) => {
-    setContent(a);
+    setDesp(a);
   };
 
   const onSave = (content) => {
