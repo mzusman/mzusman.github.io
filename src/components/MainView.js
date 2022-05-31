@@ -13,7 +13,6 @@ import {
   Typography,
 } from "@mui/material";
 import Box from "@mui/material/Box";
-import MUIRichTextEditor from "mui-rte";
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
@@ -25,9 +24,6 @@ import {
 
 const MainView = () => {
   const navigate = useNavigate();
-  const myTheme = createTheme({
-    // Set up your custom MUI theme here
-  });
   var params = useParams();
   console.log(params);
   let view = useSelector((state) =>
@@ -78,74 +74,80 @@ const MainView = () => {
       ) : (
         ""
       )}
-      {loading ?  (<Skeleton
-            variant="rectangular"
-            height={"80vh"}
-            animation="wave"
-          ></Skeleton>): posts.data.map((post) => (
-        <Box>
-          <Card>
-            <CardActionArea
-              onClick={() => {
-                if (!post.selected) {
-                  dispatch({ type: "SELECT_POST", title: post.title });
-                  navigate(`/${post.section}/${post.title}`, {
-                    replace: false,
-                  });
-                  // setOpen(true);
-                } else {
-                  dispatch({ type: "SELECT_POST", title: "" });
-                  navigate(`/${post.section}`, {
-                    replace: false,
-                  });
-                  // setOpen(false);
-                }
-              }}
-            >
-              <CardContent>
-                <Box>
-                  <Typography variant="h3" component="div">
-                    {post.title}
-                  </Typography>
-                  {/* <Typography variant="body2" color="text.secondary"> */}
-                  {!post.selected ? (
-                    <ThemeProvider theme={myTheme}>
-                      <MUIRichTextEditor
+      {loading ? (
+        <Skeleton
+          variant="rectangular"
+          height={"80vh"}
+          animation="wave"
+        ></Skeleton>
+      ) : (
+        posts.data.map((post) => (
+          <Box>
+            <Card>
+              <CardActionArea
+                onClick={() => {
+                  if (!post.selected) {
+                    dispatch({ type: "SELECT_POST", title: post.title });
+                    navigate(`/${post.section}/${post.title}`, {
+                      replace: false,
+                    });
+                    // setOpen(true);
+                  } else {
+                    dispatch({ type: "SELECT_POST", title: "" });
+                    navigate(`/${post.section}`, {
+                      replace: false,
+                    });
+                    // setOpen(false);
+                  }
+                }}
+              >
+                <CardContent>
+                  <Box>
+                    <Typography variant="h3" component="div">
+                      {post.title}
+                    </Typography>
+                    {!post.selected ? (
+                      <SunEditor
                         defaultValue={post.desp}
-                        toolbar={false}
+                        hideToolbar={true}
+                        disable={true}
+                        disableToolbar={true}
+                        setOptions={{
+                          mode: "classic",
+                          height: "auto",
+                          showPathLabel: false,
+                          resizingBar: false,
+                        }}
                         readOnly={true}
                         maxLength={10}
-                      ></MUIRichTextEditor>
-                    </ThemeProvider>
-                  ) : (
-                    ""
-                  )}
-                  {/* </Typography> */}
-                </Box>
-              </CardContent>
-            </CardActionArea>
+                      />
+                    ) : (
+                      ""
+                    )}
+                  </Box>
+                </CardContent>
+              </CardActionArea>
 
-            {auth == "ADMIN" ? (
-              <CardActions>
-                <IconButton aria-label="delete" size="small">
-                  <Delete
-                    onClick={() => {
-                      dispatch(
-                        deletePost({ section: view.title, title: post.title })
-                      );
-                    }}
-                  />
-                </IconButton>
-              </CardActions>
-            ) : (
-              ""
-            )}
-          </Card>
-          <Divider variant="middle" />
-        </Box>
-      ))}
-      
-
+              {auth == "ADMIN" ? (
+                <CardActions>
+                  <IconButton aria-label="delete" size="small">
+                    <Delete
+                      onClick={() => {
+                        dispatch(
+                          deletePost({ section: view.title, title: post.title })
+                        );
+                      }}
+                    />
+                  </IconButton>
+                </CardActions>
+              ) : (
+                ""
+              )}
+            </Card>
+            <Divider variant="middle" />
+          </Box>
+        ))
+      )}
     </Box>
   );
 };
