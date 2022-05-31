@@ -34,8 +34,7 @@ const PostDialog = () => {
   });
 
   const onSaveDesp = (a) => {
-    const rteContent = convertToRaw(a.getCurrentContent()); // for rte content with text formating
-    setDesp(JSON.stringify(rteContent));
+    setContent(a);
   };
 
   const onSave = (content) => {
@@ -98,17 +97,55 @@ const PostDialog = () => {
           fullWidth
           variant="standard"
         ></TextField>
-        <ThemeProvider theme={myTheme}>
-          <MUIRichTextEditor
-            variant="standard"
-            fullWidth
-            label="Description"
-            defaultValue={ddesp}
-            onChange={(e) => {
-              onSaveDesp(e);
-            }}
-          ></MUIRichTextEditor>
-        </ThemeProvider>
+        <SunEditor
+          label="Description"
+          setOptions={{
+            height: "auto",
+            buttonList: [
+              [
+                "undo",
+                "redo",
+                "font",
+                "fontSize",
+                "formatBlock",
+                "paragraphStyle",
+                "blockquote",
+                "bold",
+                "underline",
+                "italic",
+                "strike",
+                "subscript",
+                "superscript",
+                "fontColor",
+                "hiliteColor",
+                "textStyle",
+                "removeFormat",
+                "outdent",
+                "indent",
+                "align",
+                "horizontalRule",
+                "list",
+                "lineHeight",
+                "table",
+                "link",
+                "image",
+                "video",
+                "audio",
+                // "math",
+                "imageGallery",
+                "fullScreen",
+                "showBlocks",
+                "preview",
+                "print",
+                "save",
+              ],
+            ],
+          }}
+          // value={content}
+          defaultValue={ddesp}
+          onChange={(e) => onSaveDesp(e)}
+        ></SunEditor>
+
         <br></br>
         <SunEditor
           label="Content"
