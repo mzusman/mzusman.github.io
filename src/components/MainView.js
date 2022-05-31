@@ -16,7 +16,7 @@ import Box from "@mui/material/Box";
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
-import { SunEditor } from "suneditor-react";
+import SunEditor from "suneditor-react";
 import {
   deletePost,
   getAllPostsBySection,

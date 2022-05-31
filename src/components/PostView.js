@@ -14,9 +14,6 @@ import SunEditor from "suneditor-react";
 import { deletePost, getPostByTitle } from "../api/PostsApi";
 
 const PostView = () => {
-  const myTheme = createTheme({
-    // Set up your custom MUI theme here
-  });
   const navigate = useNavigate();
   var params = useParams();
   let view = useSelector((state) =>
